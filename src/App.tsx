@@ -1,4 +1,4 @@
-import React, { useReducer, Reducer } from "react";
+import React, { useReducer, Reducer, useEffect } from "react";
 import Filters from "./components/Filters";
 import Tabs from "./components/Tabs";
 import Cards from "./components/Cards";
@@ -14,6 +14,10 @@ const App = () => {
     reducer,
     initialState
   );
+
+  useEffect(() => {
+    console.log(state);
+  }, [state]);
 
   const handleClick = (item: any) => {
     actions.setFilters(distatch, state, item);

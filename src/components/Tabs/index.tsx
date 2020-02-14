@@ -1,7 +1,7 @@
 import React from "react";
-import "./style.scss";
 import { ITabs } from "../../defintions/interfaces";
 
+import "./style.scss";
 interface IProps {
   tabs: ITabs[];
   handleClick: any;
