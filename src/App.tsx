@@ -1,26 +1,45 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useReducer, Reducer } from "react";
+import Filters from "./components/Filters";
+import Tabs from "./components/Tabs";
+import Cards from "./components/Cards";
+import { reducer, actions, initialState } from "./redux";
+import { IState } from "./defintions/interfaces";
+import { Action } from "./defintions/types";
+
+import logo from "./logo.svg";
+import "./app.scss";
 
 const App = () => {
+  const [state, distatch] = useReducer<Reducer<IState, Action>>(
+    reducer,
+    initialState
+  );
+
+  const handleClick = (item: any) => {
+    actions.setFilters(distatch, state, item);
+  };
+
+  const handleClickTab = (item: any) => {
+    actions.setTabs(distatch, state, item);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
+    <div className="wrap">
+      <div className="header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      </div>
+
+      <div className="container">
+        <Filters handleClick={handleClick} filters={state.filters.data} />
+        <div className="results">
+          <div className="sort">
+            <Tabs handleClick={handleClickTab} tabs={state.tabs.data} />
+            <Cards />
+          </div>
+        </div>
+      </div>
     </div>
   );
-}
+};
 
 export default App;

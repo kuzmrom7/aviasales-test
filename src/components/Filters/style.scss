@@ -1,0 +1,43 @@
+.filters {
+  width: 232px;
+}
+
+.filter-item {
+  height: auto;
+  width: 232px;
+  background: #ffffff;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  box-sizing: border-box;
+
+  &__title {
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-size: 12px;
+    padding: 20px 20px 6px;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+    padding-bottom: 10px;
+  }
+
+  &__element {
+    cursor: pointer;
+    height: 40px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+
+    &:hover {
+      background: #f1fcff;
+    }
+  }
+
+  &__value {
+    padding: 0px 20px;
+    box-sizing: border-box;
+  }
+}
