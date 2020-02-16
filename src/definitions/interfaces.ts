@@ -2,6 +2,7 @@ export interface IFilter {
   id: number;
   text: string;
   isChecked: boolean;
+  value: number;
 }
 
 export interface ITabs {
@@ -47,6 +48,7 @@ export interface ITicket {
 
 export interface ITickets {
   isLoaded: boolean;
+  isError?: boolean;
   data: ITicket[];
 }
 

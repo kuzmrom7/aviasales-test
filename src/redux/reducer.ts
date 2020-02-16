@@ -10,7 +10,20 @@ function reducer(state: IState, action: any) {
       return { ...state, tabs: action.payload };
 
     case constants.SET_TICKETS:
-      return { ...state, tickets: action.payload };
+      return {
+        ...state,
+        tickets: { isLoaded: true, data: action.payload, filteredData: [] }
+      };
+
+    case constants.SET_TICKETS_ERROR:
+      return {
+        ...state,
+        tickets: {
+          isError: true,
+          isLoaded: false,
+          data: []
+        }
+      };
 
     default:
       throw new Error();

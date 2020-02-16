@@ -1,5 +1,6 @@
 import add from "date-fns/add";
 import format from "date-fns/format";
+import { ITicket } from "../definitions/interfaces";
 
 function getBoardingTime(seconds: number) {
   const hours = (seconds / 3600) ^ 0;
@@ -43,4 +44,32 @@ function declOfNum(number: number) {
   }
 }
 
-export { getBoardingTime, getTimeOnFly, declOfNum };
+function sortByPrice(a: ITicket, b: ITicket) {
+  const priceA = a.price;
+  const priceB = b.price;
+
+  if (priceA > priceB) {
+    return 1;
+  }
+  return -1;
+}
+
+function sortByTime(a: ITicket, b: ITicket) {
+  let timeA = 0;
+  let timeB = 0;
+
+  a.segments.forEach(e => {
+    timeA = timeA + e.duration;
+  });
+
+  b.segments.forEach(e => {
+    timeB = timeB + e.duration;
+  });
+
+  if (timeA > timeB) {
+    return 1;
+  }
+  return -1;
+}
+
+export { getBoardingTime, getTimeOnFly, declOfNum, sortByPrice, sortByTime };

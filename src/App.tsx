@@ -20,6 +20,17 @@ const App = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    const activeIndex = state.tabs.data.findIndex(e => e.isActive === true);
+    actions.sortTickets(
+      distatch,
+      state,
+      state.tickets.data,
+      state.tabs.data[activeIndex].id
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.tabs]);
+
   const handleClickFilter = (item: any) => {
     actions.setFilters(distatch, state, item);
   };

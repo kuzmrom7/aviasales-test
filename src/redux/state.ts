@@ -3,11 +3,11 @@ import { IState } from "../definitions/interfaces";
 const initialState: IState = {
   filters: {
     data: [
-      { id: 1, text: "Все", isChecked: false },
-      { id: 2, text: "Без пересадок", isChecked: false },
-      { id: 3, text: "1 пересадка", isChecked: false },
-      { id: 4, text: "2 пересадки", isChecked: false },
-      { id: 5, text: "3 пересадки", isChecked: false }
+      { id: 1, text: "Все", isChecked: false, value: -1 },
+      { id: 2, text: "Без пересадок", isChecked: false, value: 0 },
+      { id: 3, text: "1 пересадка", isChecked: false, value: 1 },
+      { id: 4, text: "2 пересадки", isChecked: false, value: 2 },
+      { id: 5, text: "3 пересадки", isChecked: false, value: 3 }
     ]
   },
   tabs: {
@@ -26,6 +26,7 @@ const initialState: IState = {
   },
   tickets: {
     isLoaded: false,
+    isError: false,
     data: []
   }
 };

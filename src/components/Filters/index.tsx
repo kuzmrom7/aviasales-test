@@ -23,11 +23,7 @@ const Filters: React.FC<IProps> = props => (
             <div className="filter-item__value">
               <label className="checkbox-container">
                 {item.text}
-                <input
-                  type="checkbox"
-                  checked={item.isChecked}
-                  onChange={() => props.handleClick(item)}
-                />
+                <input type="checkbox" checked={item.isChecked} />
                 <span className="checkmark"></span>
               </label>
             </div>

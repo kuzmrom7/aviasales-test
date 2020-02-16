@@ -1,59 +1,17 @@
 import React, { ReactElement } from "react";
-
-import "./style.scss";
 import { getBoardingTime, getTimeOnFly, declOfNum } from "../../utils";
 import { ITickets } from "../../definitions/interfaces";
 
-// const mock = [
-//   {
-//     price: 88646,
-//     carrier: "MH",
-//     segments: [
-//       {
-//         origin: "MOW",
-//         destination: "HKT",
-//         date: "2020-02-22T22:31:00.000Z",
-//         stops: ["IST"],
-//         duration: 1336
-//       },
-//       {
-//         origin: "MOW",
-//         destination: "HKT",
-//         date: "2020-03-14T16:03:00.000Z",
-//         stops: ["HKG", "SIN"],
-//         duration: 1837
-//       }
-//     ]
-//   },
-//   {
-//     price: 53696,
-//     carrier: "SU",
-//     segments: [
-//       {
-//         origin: "MOW",
-//         destination: "HKT",
-//         date: "2020-02-23T14:12:00.000Z",
-//         stops: ["BKK", "IST"],
-//         duration: 928
-//       },
-//       {
-//         origin: "MOW",
-//         destination: "HKT",
-//         date: "2020-03-13T21:35:00.000Z",
-//         stops: [],
-//         duration: 1043
-//       }
-//     ]
-//   }
-// ];
+import "./style.scss";
 
 interface IProps {
   tickets: ITickets;
 }
 const Cards: React.FC<IProps> = ({
-  tickets: { isLoaded, data }
+  tickets: { isLoaded, isError, data }
 }): ReactElement => {
-  if (!isLoaded) return <div>....fecth </div>;
+  if (isError) return <div> Error ,reload</div>;
+  if (!isLoaded) return <div>....fetch </div>;
   return (
     <div className="cards">
       {data.map((item, index) => (
