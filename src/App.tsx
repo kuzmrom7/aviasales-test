@@ -17,6 +17,7 @@ const App = () => {
 
   useEffect(() => {
     actions.fetchTickets(distatch, state);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleClickFilter = (item: any) => {

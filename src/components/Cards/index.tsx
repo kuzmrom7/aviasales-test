@@ -97,4 +97,12 @@ const Cards: React.FC<IProps> = ({
   );
 };
 
-export default Cards;
+const CardsContainer: React.FC<IProps> = props => {
+  const tickets = props.tickets;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const child = React.useMemo(() => <Cards {...props} />, [tickets]);
+
+  return <> {child} </>;
+};
+
+export default CardsContainer;

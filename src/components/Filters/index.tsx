@@ -38,4 +38,12 @@ const Filters: React.FC<IProps> = props => (
   </div>
 );
 
-export default Filters;
+const FilterContainer: React.FC<IProps> = props => {
+  const filters = props.filters;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const child = React.useMemo(() => <Filters {...props} />, [filters]);
+
+  return <> {child} </>;
+};
+
+export default FilterContainer;

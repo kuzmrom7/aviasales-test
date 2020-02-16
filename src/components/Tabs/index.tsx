@@ -21,4 +21,12 @@ const Tabs: React.FC<IProps> = props => (
   </ul>
 );
 
-export default Tabs;
+const TabsContainer: React.FC<IProps> = props => {
+  const tabs = props.tabs;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const child = React.useMemo(() => <Tabs {...props} />, [tabs]);
+
+  return <> {child} </>;
+};
+
+export default TabsContainer;
