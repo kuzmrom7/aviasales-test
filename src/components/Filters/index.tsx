@@ -1,5 +1,5 @@
 import React from "react";
-import { IFilter } from "../../defintions/interfaces";
+import { IFilter } from "../../definitions/interfaces";
 
 import "./style.scss";
 import "./checkbox.scss";

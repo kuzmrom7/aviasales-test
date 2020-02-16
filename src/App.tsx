@@ -3,8 +3,8 @@ import Filters from "./components/Filters";
 import Tabs from "./components/Tabs";
 import Cards from "./components/Cards";
 import { reducer, actions, initialState } from "./redux";
-import { IState } from "./defintions/interfaces";
-import { Action } from "./defintions/types";
+import { IState } from "./definitions/interfaces";
+import { Action } from "./definitions/types";
 
 import logo from "./logo.svg";
 import "./app.scss";
@@ -16,10 +16,10 @@ const App = () => {
   );
 
   useEffect(() => {
-    console.log(state);
-  }, [state]);
+    actions.fetchTickets(distatch, state);
+  }, []);
 
-  const handleClick = (item: any) => {
+  const handleClickFilter = (item: any) => {
     actions.setFilters(distatch, state, item);
   };
 
@@ -34,11 +34,11 @@ const App = () => {
       </div>
 
       <div className="container">
-        <Filters handleClick={handleClick} filters={state.filters.data} />
+        <Filters handleClick={handleClickFilter} filters={state.filters.data} />
         <div className="results">
           <div className="sort">
             <Tabs handleClick={handleClickTab} tabs={state.tabs.data} />
-            <Cards />
+            <Cards tickets={state.tickets} />
           </div>
         </div>
       </div>

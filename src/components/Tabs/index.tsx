@@ -1,5 +1,5 @@
 import React from "react";
-import { ITabs } from "../../defintions/interfaces";
+import { ITabs } from "../../definitions/interfaces";
 
 import "./style.scss";
 interface IProps {

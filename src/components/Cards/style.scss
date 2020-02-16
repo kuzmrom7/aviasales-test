@@ -20,7 +20,8 @@
 
   &__bottom {
     flex: 2 0 auto;
-    background: rosybrown;
+    display: flex;
+    flex-direction: column;
   }
 
   &__price {
@@ -28,5 +29,21 @@
     font-size: 24px;
     align-items: center;
     color: #2196f3;
+  }
+
+  &-info {
+    display: flex;
+    flex: 1 0 auto;
+    justify-content: space-between;
+  }
+
+  &-endpoint {
+    display: flex;
+    flex-direction: column;
+
+    &__title {
+      font-size: 12px;
+      color: #a0b0b9;
+    }
   }
 }

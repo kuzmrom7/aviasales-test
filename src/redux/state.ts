@@ -1,4 +1,4 @@
-import { IState } from "../defintions/interfaces";
+import { IState } from "../definitions/interfaces";
 
 const initialState: IState = {
   filters: {
@@ -23,6 +23,10 @@ const initialState: IState = {
         isActive: false
       }
     ]
+  },
+  tickets: {
+    isLoaded: false,
+    data: []
   }
 };
 

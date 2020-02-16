@@ -1,5 +1,6 @@
+import axios from "axios";
 import constants from "./constants";
-import { IFilter, IState } from "../defintions/interfaces";
+import { IFilter, IState } from "../definitions/interfaces";
 
 const actions = {
   fetchData: (dispatch: any) => {
@@ -43,6 +44,33 @@ const actions = {
     });
 
     dispatch({ type: constants.SET_TABS, payload: { data: updatedTabs } });
+  },
+  fetchTickets: async (dispatch: any, data: IState) => {
+    async function fetchData() {
+      try {
+        const response = await axios.get(
+          "https://front-test.beta.aviasales.ru/search"
+        );
+        const searchId = await response.data.searchId;
+
+        const responseTickets = await axios.get(
+          `https://front-test.beta.aviasales.ru/tickets?searchId=${searchId}`
+        );
+        return responseTickets.data.tickets.slice(0, 20);
+      } catch (e) {
+        dispatch({
+          type: constants.SET_TICKETS,
+          payload: { data: [tickets], isLoaded: false }
+        });
+      }
+    }
+
+    const tickets = await fetchData();
+
+    dispatch({
+      type: constants.SET_TICKETS,
+      payload: { data: tickets, isLoaded: true }
+    });
   }
 };
 
