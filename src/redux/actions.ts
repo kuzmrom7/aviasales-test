@@ -46,12 +46,9 @@ const actions = {
       type: constants.SET_FILTERS,
       payload: { data: updatedFilters }
     });
-
-    const appliedFilters = updatedFilters.filter(e => e.isChecked);
-    actions.filterTickets(dispatch, data, appliedFilters);
   },
-  setTabs: (dispatch: any, data: IState, item: any) => {
-    const updatedTabs = data.tabs.data.map(e => {
+  setTabs: (dispatch: any, state: IState, item: any) => {
+    const updatedTabs = state.tabs.data.map(e => {
       if (item.id === e.id) {
         e.isActive = true;
         return e;
@@ -65,19 +62,14 @@ const actions = {
   fetchTickets: async (dispatch: any, data: IState) => {
     try {
       const tickets = await fetchData();
-      actions.sortTickets(dispatch, data, tickets, 1);
+      actions.sortTickets(dispatch, tickets, 1);
     } catch (error) {
       dispatch({
         type: constants.SET_TICKETS_ERROR
       });
     }
   },
-  sortTickets: (
-    dispatch: any,
-    data: IState,
-    tickets: ITicket[],
-    activeTabId: number
-  ) => {
+  sortTickets: (dispatch: any, tickets: ITicket[], activeTabId: number) => {
     if (activeTabId === 1) {
       const sorted = tickets.sort(sortByTime);
 
@@ -93,51 +85,6 @@ const actions = {
       dispatch({
         type: constants.SET_TICKETS,
         payload: sorted
-      });
-    }
-  },
-  filterTickets: async (
-    dispatch: any,
-    state: IState,
-    appliedFilters: IFilter[]
-  ) => {
-    try {
-      const activeValues = appliedFilters.map(e => e.value);
-
-      const tickets = await fetchData();
-      let filteredTickets = tickets;
-
-      if (activeValues.length > 0) {
-        filteredTickets = await tickets.filter((e: ITicket) => {
-          const stops = e.segments
-            .map(e => e.stops)
-            .sort((a, b) => {
-              if (a.length < b.length) {
-                return 1;
-              }
-              return -1;
-            });
-
-          const count = stops[0].length;
-
-          if (activeValues.includes(count)) {
-            return true;
-          }
-          return false;
-        });
-      }
-
-      const activeIndex = state.tabs.data.findIndex(e => e.isActive === true);
-
-      actions.sortTickets(
-        dispatch,
-        state,
-        filteredTickets,
-        state.tabs.data[activeIndex].id
-      );
-    } catch (error) {
-      dispatch({
-        type: constants.SET_TICKETS_ERROR
       });
     }
   }

@@ -7,12 +7,13 @@ function reducer(state: IState, action: any) {
       return { ...state, filters: action.payload };
 
     case constants.SET_TABS:
+      console.log("SETTETETT");
       return { ...state, tabs: action.payload };
 
     case constants.SET_TICKETS:
       return {
         ...state,
-        tickets: { isLoaded: true, data: action.payload, filteredData: [] }
+        tickets: { isLoaded: true, data: action.payload }
       };
 
     case constants.SET_TICKETS_ERROR:

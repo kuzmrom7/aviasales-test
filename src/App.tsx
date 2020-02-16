@@ -10,33 +10,33 @@ import logo from "./logo.svg";
 import "./app.scss";
 
 const App = () => {
-  const [state, distatch] = useReducer<Reducer<IState, Action>>(
+  const [state, dispatch] = useReducer<Reducer<IState, Action>>(
     reducer,
     initialState
   );
 
   useEffect(() => {
-    actions.fetchTickets(distatch, state);
+    actions.fetchTickets(dispatch, state);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     const activeIndex = state.tabs.data.findIndex(e => e.isActive === true);
+
     actions.sortTickets(
-      distatch,
-      state,
+      dispatch,
       state.tickets.data,
       state.tabs.data[activeIndex].id
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.tabs]);
+  }, [state.tabs.data]);
 
   const handleClickFilter = (item: any) => {
-    actions.setFilters(distatch, state, item);
+    actions.setFilters(dispatch, state, item);
   };
 
   const handleClickTab = (item: any) => {
-    actions.setTabs(distatch, state, item);
+    actions.setTabs(dispatch, state, item);
   };
 
   return (
@@ -50,7 +50,7 @@ const App = () => {
         <div className="results">
           <div className="sort">
             <Tabs handleClick={handleClickTab} tabs={state.tabs.data} />
-            <Cards tickets={state.tickets} />
+            <Cards tickets={state.tickets} filters={state.filters} />
           </div>
         </div>
       </div>

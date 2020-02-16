@@ -1,17 +1,20 @@
 import React, { ReactElement } from "react";
 import { getBoardingTime, getTimeOnFly, declOfNum } from "../../utils";
-import { ITickets } from "../../definitions/interfaces";
+import { IFilter, ITicket, ITickets } from "../../definitions/interfaces";
 
 import "./style.scss";
 
 interface IProps {
+  filters: {
+    data: IFilter[];
+  };
   tickets: ITickets;
 }
-const Cards: React.FC<IProps> = ({
-  tickets: { isLoaded, isError, data }
-}): ReactElement => {
-  if (isError) return <div> Error ,reload</div>;
-  if (!isLoaded) return <div>....fetch </div>;
+
+interface IProps_ {
+  data: ITicket[];
+}
+const Cards: React.FC<IProps_> = ({ data }): ReactElement => {
   return (
     <div className="cards">
       {data.map((item, index) => (
@@ -55,12 +58,48 @@ const Cards: React.FC<IProps> = ({
   );
 };
 
-const CardsContainer: React.FC<IProps> = props => {
-  const tickets = props.tickets;
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const child = React.useMemo(() => <Cards {...props} />, [tickets]);
+function getFilteredTickets(appliedFilters: IFilter[], tickets: ITicket[]) {
+  const activeValues = appliedFilters.map(e => e.value);
 
-  return <> {child} </>;
+  if (activeValues.length > 0) {
+    const filteredTickets = tickets.filter((e: ITicket) => {
+      const stops = e.segments
+        .map(e => e.stops)
+        .sort((a, b) => {
+          if (a.length < b.length) {
+            return 1;
+          }
+          return -1;
+        });
+
+      const count = stops[0].length;
+
+      if (activeValues.includes(count)) {
+        return true;
+      }
+      return false;
+    });
+    return filteredTickets;
+  }
+  return tickets;
+}
+
+const CardsContainer: React.FC<IProps> = props => {
+  const { data, isLoaded, isError } = props.tickets;
+  const filters = props.filters.data;
+
+  const appliedFilters = filters.filter(e => e.isChecked);
+  const filteredTickets = getFilteredTickets(appliedFilters, data);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const child = React.useMemo(() => <Cards data={filteredTickets} />, [
+    props.tickets,
+    props.filters
+  ]);
+
+  if (isError) return <div> Error ,reload</div>;
+  if (!isLoaded) return <div>....fetch </div>;
+  return <>{child}</>;
 };
 
 export default CardsContainer;
