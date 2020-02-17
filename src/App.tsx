@@ -1,7 +1,7 @@
 import React, { useReducer, Reducer, useEffect } from "react";
 import Filters from "./components/Filters";
 import Tabs from "./components/Tabs";
-import Cards from "./components/Cards";
+import Tickets from "./components/Tickets";
 import { actions } from "./redux";
 import {
   IStateTickets,
@@ -29,7 +29,6 @@ const App = () => {
 
   useEffect(() => {
     actions.fetchTickets(dispatchTickets);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleClickFilter = (item: any) => {
@@ -51,7 +50,7 @@ const App = () => {
         <div className="results">
           <div className="sort">
             <Tabs handleClick={handleClickTab} tabs={tabs} />
-            <Cards tickets={tickets} filters={filters} tabs={tabs} />
+            <Tickets tickets={tickets} filters={filters} tabs={tabs} />
           </div>
         </div>
       </div>

@@ -72,4 +72,17 @@ function sortByTime(a: ITicket, b: ITicket) {
   return -1;
 }
 
-export { getBoardingTime, getTimeOnFly, declOfNum, sortByPrice, sortByTime };
+function getPrettyPrice(price: number) {
+  return `${price.toLocaleString("ru-RU", {
+    style: "decimal",
+    currency: "RUB"
+  })} Р`;
+}
+export {
+  getBoardingTime,
+  getTimeOnFly,
+  declOfNum,
+  sortByPrice,
+  sortByTime,
+  getPrettyPrice
+};
