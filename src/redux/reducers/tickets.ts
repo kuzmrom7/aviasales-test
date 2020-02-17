@@ -13,11 +13,9 @@ function reducer(state: IStateTickets, action: any) {
     case constants.SET_TICKETS_ERROR:
       return {
         ...state,
-        tickets: {
-          isError: true,
-          isLoaded: false,
-          data: []
-        }
+        isError: true,
+        isLoaded: false,
+        data: []
       };
 
     default:

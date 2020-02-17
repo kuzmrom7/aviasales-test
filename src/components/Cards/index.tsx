@@ -50,6 +50,7 @@ const Cards: React.FC<IPropsComponent> = ({ data }): ReactElement => {
 };
 
 const CardsContainer = React.memo((props: IProps) => {
+  console.log(props.tickets);
   const { data, isLoaded, isError } = props.tickets;
   const filters = props.filters.data;
 
