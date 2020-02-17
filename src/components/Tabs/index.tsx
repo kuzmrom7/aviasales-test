@@ -1,11 +1,7 @@
 import React from "react";
-import { IStateTabs } from "../../definitions/interfaces";
+import { IProps } from "./types";
 
 import "./style.scss";
-interface IProps {
-  tabs: IStateTabs;
-  handleClick: any;
-}
 
 const Tabs: React.FC<IProps> = props => (
   <ul className="tabs">

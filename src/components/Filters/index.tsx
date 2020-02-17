@@ -1,13 +1,8 @@
 import React from "react";
-import { IStateFilters } from "../../definitions/interfaces";
+import { IProps } from "./types";
 
 import "./style.scss";
 import "./checkbox.scss";
-
-interface IProps {
-  filters: IStateFilters;
-  handleClick: any;
-}
 
 const Filters: React.FC<IProps> = props => (
   <div className="filters">

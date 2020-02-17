@@ -1,23 +1,11 @@
 import React, { ReactElement } from "react";
 import { getBoardingTime, getTimeOnFly, declOfNum } from "../../utils";
-import {
-  ITicket,
-  IStateFilters,
-  IStateTickets
-} from "../../definitions/interfaces";
-
-import "./style.scss";
+import { IProps, IPropsComponent } from "./types";
 import { getFilteredTickets } from "./helpers";
 
-interface IProps {
-  filters: IStateFilters;
-  tickets: IStateTickets;
-}
+import "./style.scss";
 
-interface IProps_ {
-  data: ITicket[];
-}
-const Cards: React.FC<IProps_> = ({ data }): ReactElement => {
+const Cards: React.FC<IPropsComponent> = ({ data }): ReactElement => {
   return (
     <div className="cards">
       {data.map((item, index) => (
