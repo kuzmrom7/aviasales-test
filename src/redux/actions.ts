@@ -1,6 +1,5 @@
 import constants from "./constants";
-import { IFilter, ITicket, IStateFilters } from "../definitions/interfaces";
-import { sortByPrice, sortByTime } from "../utils";
+import { IFilter, IStateFilters } from "../definitions/interfaces";
 import { fetchData } from "./api";
 import { IStateTabs } from "../definitions/interfaces";
 
@@ -26,7 +25,6 @@ const actions = {
         return e;
       });
     }
-
     dispatch({
       type: constants.SET_FILTERS,
       payload: updatedFilters
@@ -47,29 +45,14 @@ const actions = {
   fetchTickets: async (dispatch: any) => {
     try {
       const tickets = await fetchData();
-      actions.sortTickets(dispatch, tickets, 1);
+
+      await dispatch({
+        type: constants.SET_TICKETS,
+        payload: tickets
+      });
     } catch (error) {
-      dispatch({
+      await dispatch({
         type: constants.SET_TICKETS_ERROR
-      });
-    }
-  },
-  sortTickets: (dispatch: any, tickets: ITicket[], activeTabId: number) => {
-    if (activeTabId === 1) {
-      const sorted = tickets.sort(sortByTime);
-
-      dispatch({
-        type: constants.SET_TICKETS,
-        payload: sorted
-      });
-    }
-
-    if (activeTabId === 2) {
-      const sorted = tickets.sort(sortByPrice);
-
-      dispatch({
-        type: constants.SET_TICKETS,
-        payload: sorted
       });
     }
   }

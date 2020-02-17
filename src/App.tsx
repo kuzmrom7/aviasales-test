@@ -32,17 +32,6 @@ const App = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    const activeIndex = tabs.data.findIndex(e => e.isActive === true);
-
-    actions.sortTickets(
-      dispatchTickets,
-      tickets.data || [],
-      tabs.data[activeIndex].id
-    );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tabs]);
-
   const handleClickFilter = (item: any) => {
     actions.setFilters(dispatchFilters, filters, item);
   };
@@ -62,7 +51,7 @@ const App = () => {
         <div className="results">
           <div className="sort">
             <Tabs handleClick={handleClickTab} tabs={tabs} />
-            <Cards tickets={tickets} filters={filters} />
+            <Cards tickets={tickets} filters={filters} tabs={tabs} />
           </div>
         </div>
       </div>

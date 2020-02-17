@@ -1,12 +1,14 @@
 import {
   ITicket,
   IStateFilters,
-  IStateTickets
+  IStateTickets,
+  IStateTabs
 } from "../../definitions/interfaces";
 
 export interface IProps {
   filters: IStateFilters;
   tickets: IStateTickets;
+  tabs: IStateTabs;
 }
 
 export interface IPropsComponent {

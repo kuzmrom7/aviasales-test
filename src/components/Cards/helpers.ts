@@ -1,6 +1,7 @@
 import { IFilter, ITicket } from "../../definitions/interfaces";
 
 import "./style.scss";
+import { sortByPrice, sortByTime } from "../../utils";
 
 function getFilteredTickets(appliedFilters: IFilter[], tickets: ITicket[]) {
   const activeValues = appliedFilters.map(e => e.value);
@@ -28,4 +29,18 @@ function getFilteredTickets(appliedFilters: IFilter[], tickets: ITicket[]) {
   return tickets;
 }
 
-export { getFilteredTickets };
+function getSortedTickets(activeTabId: number, tickets: ITicket[]) {
+  if (activeTabId === 1) {
+    const sortedTickets = tickets.sort(sortByTime);
+    return sortedTickets;
+  }
+
+  if (activeTabId === 2) {
+    const sortedTickets = tickets.sort(sortByPrice);
+    return sortedTickets;
+  }
+
+  return tickets;
+}
+
+export { getFilteredTickets, getSortedTickets };
