@@ -1,15 +1,15 @@
 import React from "react";
-import { ITabs } from "../../definitions/interfaces";
+import { IStateTabs } from "../../definitions/interfaces";
 
 import "./style.scss";
 interface IProps {
-  tabs: ITabs[];
+  tabs: IStateTabs;
   handleClick: any;
 }
 
 const Tabs: React.FC<IProps> = props => (
   <ul className="tabs">
-    {props.tabs.map(item => (
+    {props.tabs.data.map(item => (
       <li
         key={item.id}
         className={`tab ${item.isActive ? "tab__is-active" : ""}`}
@@ -21,12 +21,8 @@ const Tabs: React.FC<IProps> = props => (
   </ul>
 );
 
-const TabsContainer: React.FC<IProps> = props => {
-  const tabs = props.tabs;
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const child = React.useMemo(() => <Tabs {...props} />, [tabs]);
-
-  return <> {child} </>;
-};
+const TabsContainer = React.memo((props: IProps) => {
+  return <Tabs {...props} />;
+});
 
 export default TabsContainer;

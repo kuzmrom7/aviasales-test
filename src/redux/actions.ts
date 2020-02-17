@@ -1,27 +1,12 @@
-import axios from "axios";
 import constants from "./constants";
-import { IFilter, IState, ITicket } from "../definitions/interfaces";
+import { IFilter, ITicket, IStateFilters } from "../definitions/interfaces";
 import { sortByPrice, sortByTime } from "../utils";
-
-async function fetchData() {
-  try {
-    const response = await axios.get(
-      "https://front-test.beta.aviasales.ru/search"
-    );
-    const searchId = await response.data.searchId;
-
-    const responseTickets = await axios.get(
-      `https://front-test.beta.aviasales.ru/tickets?searchId=${searchId}`
-    );
-    return responseTickets.data.tickets.slice(0, 20);
-  } catch (e) {
-    throw new Error("");
-  }
-}
+import { fetchData } from "./api";
+import { IStateTabs } from "../definitions/interfaces";
 
 const actions = {
-  setFilters: (dispatch: any, data: IState, item: any) => {
-    const f = data.filters.data;
+  setFilters: (dispatch: any, state: IStateFilters, item: any) => {
+    const f = state.data;
     let updatedFilters: IFilter[];
 
     if (item.id === 1) {
@@ -44,11 +29,12 @@ const actions = {
 
     dispatch({
       type: constants.SET_FILTERS,
-      payload: { data: updatedFilters }
+      payload: updatedFilters
     });
   },
-  setTabs: (dispatch: any, state: IState, item: any) => {
-    const updatedTabs = state.tabs.data.map(e => {
+  setTabs: (dispatch: any, state: IStateTabs, item: any) => {
+    const t = state.data;
+    const updatedTabs = t.map(e => {
       if (item.id === e.id) {
         e.isActive = true;
         return e;
@@ -56,10 +42,9 @@ const actions = {
       e.isActive = false;
       return e;
     });
-
-    dispatch({ type: constants.SET_TABS, payload: { data: updatedTabs } });
+    dispatch({ type: constants.SET_TABS, payload: updatedTabs });
   },
-  fetchTickets: async (dispatch: any, data: IState) => {
+  fetchTickets: async (dispatch: any) => {
     try {
       const tickets = await fetchData();
       actions.sortTickets(dispatch, tickets, 1);

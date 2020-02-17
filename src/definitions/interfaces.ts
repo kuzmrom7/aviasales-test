@@ -61,3 +61,17 @@ export interface IState {
   };
   tickets: ITickets;
 }
+
+export interface IStateTickets {
+  isLoaded: boolean;
+  isError?: boolean;
+  data?: ITicket[];
+}
+
+export interface IStateTabs {
+  data: ITabs[];
+}
+
+export interface IStateFilters {
+  data: IFilter[];
+}

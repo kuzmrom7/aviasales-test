@@ -2,41 +2,53 @@ import React, { useReducer, Reducer, useEffect } from "react";
 import Filters from "./components/Filters";
 import Tabs from "./components/Tabs";
 import Cards from "./components/Cards";
-import { reducer, actions, initialState } from "./redux";
-import { IState } from "./definitions/interfaces";
-import { Action } from "./definitions/types";
+import { actions } from "./redux";
+import {
+  IStateTickets,
+  IStateTabs,
+  IStateFilters
+} from "./definitions/interfaces";
+import { ActionTickets, ActionTabs, ActionFilters } from "./definitions/types";
+import { ticketsReducer, tabsReducer, filtersReducer } from "./redux/reducers";
+import { initTabs, initFilters, initTickets } from "./redux/state";
 
 import logo from "./logo.svg";
 import "./app.scss";
 
 const App = () => {
-  const [state, dispatch] = useReducer<Reducer<IState, Action>>(
-    reducer,
-    initialState
+  const [tickets, dispatchTickets] = useReducer<
+    Reducer<IStateTickets, ActionTickets>
+  >(ticketsReducer, initTickets);
+  const [tabs, dispatchTabs] = useReducer<Reducer<IStateTabs, ActionTabs>>(
+    tabsReducer,
+    initTabs
   );
+  const [filters, dispatchFilters] = useReducer<
+    Reducer<IStateFilters, ActionFilters>
+  >(filtersReducer, initFilters);
 
   useEffect(() => {
-    actions.fetchTickets(dispatch, state);
+    actions.fetchTickets(dispatchTickets);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    const activeIndex = state.tabs.data.findIndex(e => e.isActive === true);
+    const activeIndex = tabs.data.findIndex(e => e.isActive === true);
 
     actions.sortTickets(
-      dispatch,
-      state.tickets.data,
-      state.tabs.data[activeIndex].id
+      dispatchTickets,
+      tickets.data || [],
+      tabs.data[activeIndex].id
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.tabs.data]);
+  }, [tabs]);
 
   const handleClickFilter = (item: any) => {
-    actions.setFilters(dispatch, state, item);
+    actions.setFilters(dispatchFilters, filters, item);
   };
 
   const handleClickTab = (item: any) => {
-    actions.setTabs(dispatch, state, item);
+    actions.setTabs(dispatchTabs, tabs, item);
   };
 
   return (
@@ -46,11 +58,11 @@ const App = () => {
       </div>
 
       <div className="container">
-        <Filters handleClick={handleClickFilter} filters={state.filters.data} />
+        <Filters handleClick={handleClickFilter} filters={filters} />
         <div className="results">
           <div className="sort">
-            <Tabs handleClick={handleClickTab} tabs={state.tabs.data} />
-            <Cards tickets={state.tickets} filters={state.filters} />
+            <Tabs handleClick={handleClickTab} tabs={tabs} />
+            <Cards tickets={tickets} filters={filters} />
           </div>
         </div>
       </div>

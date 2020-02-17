@@ -1,11 +1,11 @@
 import React from "react";
-import { IFilter } from "../../definitions/interfaces";
+import { IStateFilters } from "../../definitions/interfaces";
 
 import "./style.scss";
 import "./checkbox.scss";
 
 interface IProps {
-  filters: IFilter[];
+  filters: IStateFilters;
   handleClick: any;
 }
 
@@ -14,16 +14,20 @@ const Filters: React.FC<IProps> = props => (
     <div className="filter-item">
       <div className="filter-item__title">Количество пересадок</div>
       <div className="filter-item__list">
-        {props.filters.map(item => (
+        {props.filters.data.map(item => (
           <div
             key={item.id}
             className="filter-item__element"
-            onClick={() => props.handleClick(item)}
+            onClick={e => props.handleClick(e, item)}
           >
             <div className="filter-item__value">
               <label className="checkbox-container">
                 {item.text}
-                <input type="checkbox" checked={item.isChecked} />
+                <input
+                  type="checkbox"
+                  checked={item.isChecked}
+                  onChange={e => props.handleClick(e, item)}
+                />
                 <span className="checkmark"></span>
               </label>
             </div>
@@ -34,12 +38,12 @@ const Filters: React.FC<IProps> = props => (
   </div>
 );
 
-const FilterContainer: React.FC<IProps> = props => {
-  const filters = props.filters;
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const child = React.useMemo(() => <Filters {...props} />, [filters]);
-
-  return <> {child} </>;
-};
+const FilterContainer = React.memo((props: IProps) => {
+  const handleChange = (e: any, item: any) => {
+    e.stopPropagation();
+    props.handleClick(item);
+  };
+  return <Filters {...props} handleClick={handleChange} />;
+});
 
 export default FilterContainer;
