@@ -9,11 +9,29 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  animation: fadeIn 0.5s;
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
 
   &-error {
     color: red;
     padding: 40px 20px;
     text-align: center;
+  }
+
+  &-loader {
+    padding: 100px 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
   }
 
   &__top {

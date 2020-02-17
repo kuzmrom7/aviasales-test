@@ -1,4 +1,5 @@
 import React, { ReactElement } from "react";
+import Loader from "./Loader";
 import {
   getBoardingTime,
   getTimeOnFly,
@@ -69,7 +70,10 @@ const TicketsContainer = React.memo((props: IProps) => {
 
   if (isError)
     return <div className="ticket-error"> Error , please reload page</div>;
-  if (!isLoaded) return <div>....Loading data </div>;
+
+  if (!isLoaded) {
+    return <Loader />;
+  }
 
   return <Tickets data={sortedTickets} />;
 });

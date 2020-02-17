@@ -17,6 +17,10 @@ body {
   height: 144px;
   display: flex;
   justify-content: center;
+
+  img {
+    cursor: pointer;
+  }
 }
 
 .container {
