@@ -68,7 +68,7 @@ const TicketsContainer = React.memo((props: IProps) => {
   const sortedTickets = getSortedTickets(tabs[activeIndex].id, filteredTickets);
 
   if (isError)
-    return <div className="ticker-error"> Error , please reload page</div>;
+    return <div className="ticket-error"> Error , please reload page</div>;
   if (!isLoaded) return <div>....Loading data </div>;
 
   return <Tickets data={sortedTickets} />;
