@@ -78,11 +78,25 @@ function getPrettyPrice(price: number) {
     currency: "RUB"
   })} Р`;
 }
+
+function getInitFromLocalStorage(data: any, key: string) {
+  const str = localStorage.getItem(key);
+  if (!str) {
+    return data;
+  }
+  return JSON.parse(str || "");
+}
+
+function setToLocalStorage(key: string, value: any) {
+  localStorage.setItem(key, JSON.stringify(value));
+}
 export {
   getBoardingTime,
   getTimeOnFly,
   declOfNum,
   sortByPrice,
   sortByTime,
-  getPrettyPrice
+  getPrettyPrice,
+  getInitFromLocalStorage,
+  setToLocalStorage
 };
