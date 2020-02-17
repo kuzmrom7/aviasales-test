@@ -18,7 +18,7 @@ https://www.figma.com/file/4fQe1lEbo4DARjvNtaU0uJ/Aviasales-test-task
 
 https://github.com/KosyanMedia/test-tasks/blob/master/aviasales_frontend/README.md
 
-## Запуск и устновка проекта
+## Запуск и установка проекта
 
 ```
 npm install && npm start
